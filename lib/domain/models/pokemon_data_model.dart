@@ -21,6 +21,11 @@ class PokemonData {
             json["stats"].map((x) => StatElement.fromJson(x))),
         types: List<Type>.from(json["types"].map((x) => Type.fromJson(x))),
       );
+
+  @override
+  String toString() {
+    return 'PokemonData(id: $id, name: $name, sprite: $sprite, stats: $stats, types: $types)';
+  }
 }
 
 class StatElement {
@@ -36,6 +41,11 @@ class StatElement {
         baseStat: json["base_stat"],
         statName: json["stat"]['name'],
       );
+
+  @override
+  String toString() {
+    return 'StatElement(baseStat: $baseStat, statName: $statName)';
+  }
 }
 
 class Type {
@@ -51,4 +61,9 @@ class Type {
         slot: json["slot"],
         typeName: json["type"]["name"],
       );
+
+  @override
+  String toString() {
+    return 'Type(slot: $slot, typeName: $typeName)';
+  }
 }
