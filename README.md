@@ -1,4 +1,4 @@
-# prueba_tecnica
+# scrollerdex
 
 A new Flutter project.
 

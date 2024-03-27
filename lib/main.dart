@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:prueba_tecnica/core/dependency_injection/locator.dart';
-import 'package:prueba_tecnica/presentation/views/scrollerdex_view.dart';
+import 'package:scrollerdex/core/dependency_injection/locator.dart';
+import 'package:scrollerdex/presentation/views/scrollerdex_view.dart';
 
 void main() {
   runApp(

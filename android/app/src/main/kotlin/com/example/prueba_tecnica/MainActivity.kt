@@ -1,4 +1,4 @@
-package com.example.prueba_tecnica
+package com.example.scrollerdex
 
 import io.flutter.embedding.android.FlutterActivity
 

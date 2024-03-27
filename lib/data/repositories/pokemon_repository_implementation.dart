@@ -1,9 +1,9 @@
 import 'dart:developer';
 
-import 'package:prueba_tecnica/core/services/http_service.dart';
-import 'package:prueba_tecnica/domain/models/pokemon_data_model.dart';
-import 'package:prueba_tecnica/domain/models/pokemon_model.dart';
-import 'package:prueba_tecnica/domain/repositories/pokemon_repository.dart';
+import 'package:scrollerdex/core/services/http_service.dart';
+import 'package:scrollerdex/domain/models/pokemon_data_model.dart';
+import 'package:scrollerdex/domain/models/pokemon_model.dart';
+import 'package:scrollerdex/domain/repositories/pokemon_repository.dart';
 
 class PokemonRepositoryImplementation implements PokemonRepository {
   final HttpService _httpService;

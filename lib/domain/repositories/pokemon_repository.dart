@@ -1,5 +1,5 @@
-import 'package:prueba_tecnica/domain/models/pokemon_data_model.dart';
-import 'package:prueba_tecnica/domain/models/pokemon_model.dart';
+import 'package:scrollerdex/domain/models/pokemon_data_model.dart';
+import 'package:scrollerdex/domain/models/pokemon_model.dart';
 
 abstract class PokemonRepository {
   Pokemon? get pokemon;

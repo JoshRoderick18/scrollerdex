@@ -1,5 +1,5 @@
-name: prueba_tecnica
-description: "Prueba tecnica consumiendo la PokeApi."
+name: scrollerdex
+description: "Pokedex with scrolling effect"
 
 publish_to: "none"
 

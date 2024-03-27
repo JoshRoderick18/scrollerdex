@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:prueba_tecnica/presentation/controllers/scrollerdex_view_controller.dart';
+import 'package:scrollerdex/presentation/controllers/scrollerdex_view_controller.dart';
 
 class ScrollerdexView extends StatefulHookConsumerWidget {
   const ScrollerdexView({super.key});

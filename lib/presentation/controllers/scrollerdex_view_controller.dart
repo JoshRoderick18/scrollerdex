@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:prueba_tecnica/core/dependency_injection/locator.dart';
-import 'package:prueba_tecnica/domain/models/pokemon_data_model.dart';
-import 'package:prueba_tecnica/domain/models/pokemon_model.dart';
-import 'package:prueba_tecnica/domain/repositories/pokemon_repository.dart';
+import 'package:scrollerdex/core/dependency_injection/locator.dart';
+import 'package:scrollerdex/domain/models/pokemon_data_model.dart';
+import 'package:scrollerdex/domain/models/pokemon_model.dart';
+import 'package:scrollerdex/domain/repositories/pokemon_repository.dart';
 
 class ScrollerdexViewController extends ChangeNotifier {
   final PokemonRepository _pokemonRepository;
