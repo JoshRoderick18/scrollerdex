@@ -11,18 +11,24 @@ class PokemonRepositoryImplementation implements PokemonRepository {
   PokemonRepositoryImplementation({required HttpService httpService})
       : _httpService = httpService;
 
-  late Pokemon _pokemon;
-  late List<Pokemon?> _pokemons;
-  int page = 0;
+  late List<PokemonData?> _pokemonsData;
 
   @override
-  Pokemon? get pokemon => _pokemon;
+  List<PokemonData?> get pokemonsData => _pokemonsData;
 
-  @override
-  List<Pokemon?> get pokemons => _pokemons;
+  Future<List<Pokemon>> _getPokemons() async {
+    try {
+      final response = await _httpService.dio.get('?limit=20&offset=0');
+      return (response.data['results'] as List)
+          .map((pokemon) => Pokemon.fromJson(pokemon))
+          .toList();
+    } catch (e) {
+      log(e.toString());
+    }
+    throw Exception('Failed to get pokemons');
+  }
 
-  @override
-  Future<PokemonData> getPokemonData(String name) async {
+  Future<PokemonData> _getPokemonData(String name) async {
     try {
       final response = await _httpService.dio.get('/$name');
       return PokemonData.fromJson(response.data);
@@ -33,16 +39,21 @@ class PokemonRepositoryImplementation implements PokemonRepository {
   }
 
   @override
-  Future<List<Pokemon>> getPokemons() async {
+  Future<List<PokemonData>> getPokemonsData() async {
     try {
-      page += 1;
-      final response = await _httpService.dio.get('?limit=20&offset=0');
-      return (response.data['results'] as List)
-          .map((pokemon) => Pokemon.fromJson(pokemon))
-          .toList();
+      List<Pokemon> pokemons = await _getPokemons();
+      List<PokemonData> pokemonDataList = [];
+
+      for (Pokemon pokemon in pokemons) {
+        PokemonData pokemonData = await _getPokemonData(pokemon.name);
+        pokemonDataList.add(pokemonData);
+      }
+
+      return pokemonDataList;
     } catch (e) {
       log(e.toString());
     }
-    throw Exception('Failed to get pokemons');
+
+    throw Exception('Failed to get pokemon data for all pokemons');
   }
 }

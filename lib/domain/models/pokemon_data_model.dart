@@ -44,7 +44,7 @@ class StatElement {
 
   @override
   String toString() {
-    return 'StatElement(baseStat: $baseStat, statName: $statName)';
+    return 'statName: $statName, baseStat: $baseStat';
   }
 }
 
