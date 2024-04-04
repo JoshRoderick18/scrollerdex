@@ -1,29 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:scrollerdex/domain/models/pokemon_data_model.dart';
+import 'package:scrollerdex/presentation/widgets/pokemon_stats_card.dart';
 
 class PokemonView extends StatelessWidget {
-  const PokemonView({super.key});
+  final PokemonData pokemonData;
+  final Color typeColor;
+
+  const PokemonView(
+      {super.key, required this.pokemonData, required this.typeColor});
 
   @override
   Widget build(BuildContext context) {
-    return const SafeArea(
+    return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.orange,
+        backgroundColor: typeColor,
         body: Padding(
-          padding: EdgeInsets.symmetric(vertical: 42, horizontal: 24),
+          padding: const EdgeInsets.symmetric(vertical: 42, horizontal: 24),
           child: Stack(
             alignment: Alignment.center,
             children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  FavoritesPokemons(),
-                  PokemonHeader(),
-                  PokemonStatsCard(),
+                  const _FavoritesPokemons(),
+                  _PokemonHeader(
+                      pokemonId: pokemonData.id, pokemonName: pokemonData.name),
+                  PokemonStatsCard(
+                      pokemonData: pokemonData, typeColor: typeColor),
                 ],
               ),
               Positioned(
-                bottom: 200,
-                child: PokemonImage(),
+                bottom: 210,
+                child: _PokemonImage(pokemonImageUrl: pokemonData.sprite),
               ),
             ],
           ),
@@ -33,8 +41,8 @@ class PokemonView extends StatelessWidget {
   }
 }
 
-class FavoritesPokemons extends StatelessWidget {
-  const FavoritesPokemons({super.key});
+class _FavoritesPokemons extends StatelessWidget {
+  const _FavoritesPokemons();
 
   @override
   Widget build(BuildContext context) {
@@ -43,15 +51,17 @@ class FavoritesPokemons extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Text(
-            'Mis favoritos',
-            style: TextStyle(fontSize: 20),
+            'My favorites',
+            style: TextStyle(
+                fontSize: 20, color: Colors.white, fontWeight: FontWeight.w400),
           ),
           SizedBox(
             width: 20,
           ),
           Icon(
-            Icons.favorite,
+            Icons.favorite_border_outlined,
             size: 40,
+            color: Colors.white,
           ),
         ],
       ),
@@ -59,139 +69,32 @@ class FavoritesPokemons extends StatelessWidget {
   }
 }
 
-class PokemonHeader extends StatelessWidget {
-  const PokemonHeader({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Pokemon No. 1',
-          style: TextStyle(
-            fontSize: 16,
-            color: Colors.white,
-          ),
-        ),
-        SizedBox(
-          height: 10,
-        ),
-        Text(
-          'Pitoco',
-          style: TextStyle(
-            fontSize: 24,
-            color: Colors.white,
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class PokemonImage extends StatelessWidget {
-  const PokemonImage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 350,
-      child: Image.network(
-        'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/1.png',
-      ),
-    );
-  }
-}
-
-class PokemonStatsCard extends StatelessWidget {
-  const PokemonStatsCard({super.key});
+class _PokemonHeader extends StatelessWidget {
+  final String pokemonName;
+  final int pokemonId;
+  const _PokemonHeader({required this.pokemonName, required this.pokemonId});
 
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
-          height: 350,
-        ),
-        Container(
-          height: 240,
-          decoration: BoxDecoration(
+        Text(
+          'Pokemon No. $pokemonId',
+          style: const TextStyle(
+            fontSize: 16,
             color: Colors.white,
-            borderRadius: BorderRadius.circular(20),
           ),
-          child: Padding(
-            padding: const EdgeInsets.all(24.0),
-            child: Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      PokemonStatsContainer(
-                        color: Colors.orange,
-                        stat: 'Attack',
-                        value: 100,
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      PokemonStatsContainer(
-                        color: Colors.orange,
-                        stat: 'Attack',
-                        value: 100,
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      PokemonStatsContainer(
-                        color: Colors.orange,
-                        stat: 'Attack',
-                        value: 100,
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      TypeContainer(
-                        type: 'Fire',
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          child: const Text(
-                            'Hola',
-                            style: TextStyle(
-                              color: Colors.white,
-                            ),
-                          ),
-                          style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all(Colors.black),
-                            shape: MaterialStateProperty.all(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(6),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        Text(
+          '${pokemonName[0].toUpperCase()}${pokemonName.substring(1)}',
+          style: const TextStyle(
+            fontSize: 24,
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
           ),
         ),
       ],
@@ -199,68 +102,16 @@ class PokemonStatsCard extends StatelessWidget {
   }
 }
 
-class PokemonStatsContainer extends StatelessWidget {
-  const PokemonStatsContainer({
-    super.key,
-    required this.stat,
-    required this.value,
-    required this.color,
-  });
-
-  final String stat;
-  final int value;
-  final Color color;
+class _PokemonImage extends StatelessWidget {
+  final String pokemonImageUrl;
+  const _PokemonImage({required this.pokemonImageUrl});
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Container(
-          decoration: BoxDecoration(
-            color: color,
-            border: Border.all(color: Colors.black),
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-            child: Text(stat),
-          ),
-        ),
-        Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            border: Border.all(color: Colors.black),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              value.toString(),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class TypeContainer extends StatelessWidget {
-  const TypeContainer({super.key, required this.type});
-
-  final String type;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border.all(color: Colors.black),
-        borderRadius: BorderRadius.circular(10),
-      ),
-      height: 40,
-      width: 120,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Text('Type: $type'),
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.42,
+      child: Image.network(
+        pokemonImageUrl,
       ),
     );
   }
