@@ -18,9 +18,26 @@ class PokemonData {
         name: json["name"],
         sprite: json["sprites"]['other']['home']['front_default'],
         stats: List<StatElement>.from(
-            json["stats"].map((x) => StatElement.fromJson(x))),
-        types: List<Type>.from(json["types"].map((x) => Type.fromJson(x))),
+          json["stats"].map(
+            (x) => StatElement.fromJson(x),
+          ),
+        ),
+        types: List<Type>.from(
+          json["types"].map(
+            (x) => Type.fromJson(x),
+          ),
+        ),
       );
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'sprite': sprite,
+      'stats': stats.map((e) => e.toJson()).toList(),
+      'types': types.map((e) => e.toJson()).toList(),
+    };
+  }
 
   @override
   String toString() {
@@ -42,6 +59,13 @@ class StatElement {
         statName: json["stat"]['name'],
       );
 
+  Map<String, dynamic> toJson() {
+    return {
+      'baseStat': baseStat,
+      'statName': statName,
+    };
+  }
+
   @override
   String toString() {
     return 'statName: $statName, baseStat: $baseStat';
@@ -61,6 +85,13 @@ class Type {
         slot: json["slot"],
         typeName: json["type"]["name"],
       );
+
+  Map<String, dynamic> toJson() {
+    return {
+      'slot': slot,
+      'typeName': typeName,
+    };
+  }
 
   @override
   String toString() {
