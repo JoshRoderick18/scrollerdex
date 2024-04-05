@@ -2,6 +2,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferencesService {
   SharedPreferences? _prefs;
+  final String _key = "savedPokemons";
 
   SharedPreferencesService._internal();
 
@@ -14,13 +15,13 @@ class SharedPreferencesService {
     return _prefs;
   }
 
-  Future<String> getString(String key) async {
+  Future<List<String>> getSavedPokemons() async {
     var pref = await _initializePrefs;
-    return pref?.getString(key) ?? "";
+    return pref?.getStringList(_key) ?? [];
   }
 
-  Future<void> setStringList(String key, List<String> value) async {
+  Future<void> setSavedPokemons(List<String> value) async {
     var pref = await _initializePrefs;
-    await pref?.setStringList(key, value);
+    await pref?.setStringList(_key, value);
   }
 }
