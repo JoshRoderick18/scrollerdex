@@ -13,7 +13,7 @@ class PokemonStatsCard extends StatelessWidget {
     return Column(
       children: [
         Container(
-          height: 350,
+          height: 320,
         ),
         Container(
           height: 240,
