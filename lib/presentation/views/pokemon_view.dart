@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:scrollerdex/domain/models/pokemon_data_model.dart';
+import 'package:scrollerdex/presentation/views/favorites_view.dart';
 import 'package:scrollerdex/presentation/widgets/pokemon_stats_card.dart';
 
 class PokemonView extends StatelessWidget {
   final PokemonData pokemonData;
   final Color typeColor;
+  final Function(PokemonData) onSavePokemon;
 
   const PokemonView(
-      {super.key, required this.pokemonData, required this.typeColor});
+      {super.key,
+      required this.pokemonData,
+      required this.typeColor,
+      required this.onSavePokemon});
 
   @override
   Widget build(BuildContext context) {
@@ -23,10 +28,13 @@ class PokemonView extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const _FavoritesPokemons(),
+                  const Spacer(),
                   _PokemonHeader(
                       pokemonId: pokemonData.id, pokemonName: pokemonData.name),
                   PokemonStatsCard(
-                      pokemonData: pokemonData, typeColor: typeColor),
+                      pokemonData: pokemonData,
+                      typeColor: typeColor,
+                      onSavePokemonTap: onSavePokemon),
                 ],
               ),
               Positioned(
@@ -47,6 +55,16 @@ class _FavoritesPokemons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) {
+              return const FavoritesView();
+            },
+          ),
+        );
+      },
       child: const Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
@@ -86,13 +104,10 @@ class _PokemonHeader extends StatelessWidget {
             color: Colors.white,
           ),
         ),
-        const SizedBox(
-          height: 10,
-        ),
         Text(
           '${pokemonName[0].toUpperCase()}${pokemonName.substring(1)}',
           style: const TextStyle(
-            fontSize: 24,
+            fontSize: 30,
             color: Colors.white,
             fontWeight: FontWeight.bold,
           ),
