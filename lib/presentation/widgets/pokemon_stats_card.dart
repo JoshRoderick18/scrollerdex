@@ -4,9 +4,13 @@ import 'package:scrollerdex/domain/models/pokemon_data_model.dart';
 class PokemonStatsCard extends StatelessWidget {
   final PokemonData pokemonData;
   final Color typeColor;
+  final Function(PokemonData) onSavePokemonTap;
 
   const PokemonStatsCard(
-      {super.key, required this.pokemonData, required this.typeColor});
+      {super.key,
+      required this.pokemonData,
+      required this.typeColor,
+      required this.onSavePokemonTap});
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +77,9 @@ class PokemonStatsCard extends StatelessWidget {
                       height: 50,
                       width: MediaQuery.of(context).size.width * 0.77,
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          onSavePokemonTap(pokemonData);
+                        },
                         style: ButtonStyle(
                           backgroundColor:
                               MaterialStateProperty.all(Colors.black87),
