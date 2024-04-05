@@ -29,6 +29,22 @@ class PokemonData {
         ),
       );
 
+  factory PokemonData.fromLocalJson(Map<String, dynamic> json) => PokemonData(
+        id: json["id"],
+        name: json["name"],
+        sprite: json["sprite"],
+        stats: List<StatElement>.from(
+          json["stats"].map(
+            (x) => StatElement.fromLocalJson(x),
+          ),
+        ),
+        types: List<Type>.from(
+          json["types"].map(
+            (x) => Type.fromLocalJson(x),
+          ),
+        ),
+      );
+
   Map<String, dynamic> toJson() {
     return {
       'id': id,
@@ -59,6 +75,11 @@ class StatElement {
         statName: json["stat"]['name'],
       );
 
+  factory StatElement.fromLocalJson(Map<String, dynamic> json) => StatElement(
+        baseStat: json["baseStat"],
+        statName: json["statName"],
+      );
+
   Map<String, dynamic> toJson() {
     return {
       'baseStat': baseStat,
@@ -84,6 +105,11 @@ class Type {
   factory Type.fromJson(Map<String, dynamic> json) => Type(
         slot: json["slot"],
         typeName: json["type"]["name"],
+      );
+
+  factory Type.fromLocalJson(Map<String, dynamic> json) => Type(
+        slot: json["slot"],
+        typeName: json["typeName"],
       );
 
   Map<String, dynamic> toJson() {
