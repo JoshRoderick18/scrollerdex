@@ -4,9 +4,7 @@ import 'package:scrollerdex/domain/models/pokemon_data_model.dart';
 import 'package:scrollerdex/presentation/controllers/favorites_view_controller.dart';
 
 class FavoritesView extends StatefulHookConsumerWidget {
-  final List<PokemonData?> savedPokemons;
-
-  const FavoritesView(this.savedPokemons, {super.key});
+  const FavoritesView({super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _FavoritesViewState();
@@ -16,11 +14,14 @@ class _FavoritesViewState extends ConsumerState<FavoritesView> {
   @override
   void initState() {
     super.initState();
+    ref.read(favoritesViewProvider).getSavedPokemonsData();
   }
 
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
+    List<PokemonData?> savedPokemons =
+        ref.watch(favoritesViewProvider).savedPokemons;
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -48,7 +49,7 @@ class _FavoritesViewState extends ConsumerState<FavoritesView> {
         body: Padding(
           padding: EdgeInsets.all(screenWidth * 0.06),
           child: ListView.builder(
-            itemCount: widget.savedPokemons.length,
+            itemCount: savedPokemons.length,
             itemBuilder: (context, index) {
               return Container(
                 height: 100,
@@ -57,7 +58,7 @@ class _FavoritesViewState extends ConsumerState<FavoritesView> {
                   color: ref
                       .read(favoritesViewProvider)
                       .getColorFromPokemonType(
-                          widget.savedPokemons[index]!.types[0].typeName),
+                          savedPokemons[index]!.types[0].typeName),
                 ),
                 margin: const EdgeInsets.all(8.0),
                 child: Row(
@@ -65,14 +66,14 @@ class _FavoritesViewState extends ConsumerState<FavoritesView> {
                     Padding(
                       padding: const EdgeInsets.only(left: 5, bottom: 5),
                       child: Image.network(
-                        widget.savedPokemons[index]!.sprite,
+                        savedPokemons[index]!.sprite,
                         fit: BoxFit.contain,
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 5),
                       child: Text(
-                        '${widget.savedPokemons[index]!.name[0].toUpperCase()}${widget.savedPokemons[index]!.name.substring(1)}',
+                        '${savedPokemons[index]!.name[0].toUpperCase()}${savedPokemons[index]!.name.substring(1)}',
                         style: const TextStyle(
                           fontSize: 24,
                           color: Colors.white,
@@ -87,7 +88,9 @@ class _FavoritesViewState extends ConsumerState<FavoritesView> {
                         icon: const Icon(Icons.delete_outlined,
                             color: Colors.white, size: 30),
                         onPressed: () {
-                          // Handle delete action
+                          ref
+                              .read(favoritesViewProvider)
+                              .removeSavedPokemon(index);
                         },
                       ),
                     ),

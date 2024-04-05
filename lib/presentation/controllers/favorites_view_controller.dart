@@ -11,13 +11,20 @@ class FavoritesViewController extends ChangeNotifier {
   FavoritesViewController({required PokemonRepository pokemonRepository})
       : _pokemonRepository = pokemonRepository;
 
-  final List<PokemonData?> _savedPokemons = [];
+  List<PokemonData?> _savedPokemons = [];
   List<PokemonData?> get savedPokemons => _savedPokemons;
 
-  // List<PokemonData?> getSavedPokemonsData() {
-  //   _savedPokemons = _pokemonRepository.pokemonsData;
-  //   return _savedPokemons;
-  // }
+  Future<List<PokemonData?>> getSavedPokemonsData() async {
+    _savedPokemons = await _pokemonRepository.getSavedPokemons();
+    notifyListeners();
+    return _savedPokemons;
+  }
+
+  void removeSavedPokemon(int index) {
+    _pokemonRepository.removePokemon(index);
+    _savedPokemons.removeAt(index);
+    notifyListeners();
+  }
 
   Color getColorFromPokemonType(String type) {
     return getColorByType(type);
