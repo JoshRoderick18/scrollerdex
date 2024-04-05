@@ -34,6 +34,7 @@ class _ScrollerdexViewState extends ConsumerState<ScrollerdexView> {
               itemCount: pokemonData.length,
               itemBuilder: (context, index) {
                 return PokemonView(
+                  onSavePokemon: ref.read(scrollerdexViewProvider).savePokemon,
                   pokemonData: pokemonData[index]!,
                   typeColor: ref
                       .read(scrollerdexViewProvider)

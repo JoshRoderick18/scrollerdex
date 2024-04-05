@@ -19,10 +19,13 @@ class ScrollerdexViewController extends ChangeNotifier {
 
   Future<List<PokemonData?>> getPokemonsData() async {
     _pokemonsData = await _pokemonRepository.getPokemonsData();
-    log('Pokemons data: $_pokemonsData');
     isLoading = false;
     notifyListeners();
     return _pokemonsData;
+  }
+
+  void savePokemon(PokemonData pokemonData) {
+    _pokemonRepository.savePokemon(pokemonData);
   }
 
   Color getColorFromPokemonType(String type) {
