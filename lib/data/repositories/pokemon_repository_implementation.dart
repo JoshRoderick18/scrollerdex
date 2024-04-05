@@ -89,7 +89,6 @@ class PokemonRepositoryImplementation implements PokemonRepository {
     final pokemonJson = pokemon.toJson();
     final pokemonString = jsonEncode(pokemonJson);
     final savedPokemons = await _sharedPreferencesService.getSavedPokemons();
-    log(name: 'savedPokemons', savedPokemons.toString());
     savedPokemons.add(pokemonString);
     await _sharedPreferencesService.setSavedPokemons(savedPokemons);
   }
