@@ -9,12 +9,17 @@ class PokemonRepositoryImplementation implements PokemonRepository {
   final HttpService _httpService;
 
   PokemonRepositoryImplementation({required HttpService httpService})
-      : _httpService = httpService;
+      : _httpService = httpService {
+    _pokemonsData = [];
+  }
 
   late List<PokemonData?> _pokemonsData;
 
   @override
   List<PokemonData?> get pokemonsData => _pokemonsData;
+
+  @override
+  List<PokemonData?> get savedPokemons => _pokemonsData;
 
   Future<List<Pokemon>> _getPokemons() async {
     try {
