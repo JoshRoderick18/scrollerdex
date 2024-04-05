@@ -8,7 +8,7 @@ import 'package:stacked_services/stacked_services.dart';
 GetIt locator = GetIt.instance;
 
 void setupLocator() async {
-  locator.registerFactory<SharedPreferencesService>(
+  locator.registerLazySingleton<SharedPreferencesService>(
     () => SharedPreferencesService(),
   );
 
@@ -23,6 +23,7 @@ void setupLocator() async {
   locator.registerLazySingleton<PokemonRepository>(
     () => PokemonRepositoryImplementation(
       httpService: HttpService(),
+      sharedPreferencesService: SharedPreferencesService(),
     ),
   );
 }
