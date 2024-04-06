@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:scrollerdex/core/services/http_service.dart';
 import 'package:scrollerdex/core/services/shared_preferences_service.dart';
 import 'package:scrollerdex/domain/models/pokemon_data_model.dart';
@@ -53,6 +54,7 @@ class PokemonRepositoryImplementation implements PokemonRepository {
   @override
   Future<List<PokemonData>> getPokemonsData() async {
     try {
+      Fluttertoast.showToast(msg: 'Catching them all...');
       List<Pokemon> pokemons = await _getPokemons();
       List<PokemonData> pokemonDataList = [];
 
@@ -82,6 +84,7 @@ class PokemonRepositoryImplementation implements PokemonRepository {
     final savedPokemons = await _sharedPreferencesService.getSavedPokemons();
     savedPokemons.removeAt(index);
     await _sharedPreferencesService.setSavedPokemons(savedPokemons);
+    Fluttertoast.showToast(msg: 'Pokemon has been released');
   }
 
   @override
@@ -91,5 +94,6 @@ class PokemonRepositoryImplementation implements PokemonRepository {
     final savedPokemons = await _sharedPreferencesService.getSavedPokemons();
     savedPokemons.add(pokemonString);
     await _sharedPreferencesService.setSavedPokemons(savedPokemons);
+    Fluttertoast.showToast(msg: 'Pokemon added to the team');
   }
 }
