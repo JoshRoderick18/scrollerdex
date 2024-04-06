@@ -13,6 +13,7 @@ dependencies:
   dio: ^5.4.2
   flutter:
     sdk: flutter
+  flutter_launcher_icons: ^0.13.1
   flutter_native_splash: ^2.4.0
   fluttertoast: ^8.2.4
   get_it: ^7.6.7
@@ -25,6 +26,12 @@ dev_dependencies:
   flutter_lints: ^3.0.0
   flutter_test:
     sdk: flutter
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icon.png"
+  min_sdk_android: 21
 
 flutter:
   uses-material-design: true
