@@ -14,6 +14,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_native_splash: ^2.4.0
+  fluttertoast: ^8.2.4
   get_it: ^7.6.7
   hooks_riverpod: ^2.5.1
   riverpod: ^2.5.1
